@@ -1,0 +1,244 @@
+{{#if Susr}}
+<center>
+    <div class="card" style="margin-top: 1em;margin-left: 3em;margin-right: 3em;">
+        <div class="card">
+            <div class="card-header">
+                USUARIOS REGISTRADOS
+            </div>
+            <div class="card-body" style="text-align: center;">
+                <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">BOLETA/MATRÍCULA</th>
+                    <th scope="col">NOMBRE</th>
+                    <th scope="col">STATUS</th>
+                    {{!--<th scope="col">TIPO DE INGRESO</th> --}}
+                  </tr>
+                </thead>
+                <tbody>
+                  {{#each usr}}
+                  <tr>
+                    <td>{{this.mb}}</td>
+                    <td>{{this.nom}} {{this.pri}} {{this.seg}}</td>
+                    <td>{{#if this.estat}}ACTIVO{{else}}INACTIVO{{/if}}</td>
+                    <td>
+                      <div class="btn-group" role="group">
+                        <a class="btn btn-info" href="/ver/datos/usuario/?s={{this.mb}}">VER</a>
+                        <a class="btn btn-danger" href="/eliminar/usuario/?s={{this.mb}}" >ELIMINAR</a>
+                      </div>
+                    </td>
+                  </tr>
+                  {{/each}}
+                </tbody>
+              </table>
+            </div>
+        </div>
+    </div>
+</center>
+{{/if}}
+
+{{#if Smat}}
+
+<center>
+  <div class="card" style="margin-top: 1em;margin-left: 3em;margin-right: 3em;">
+    <div class="card">
+      <div class="card-header">
+        INVENTARIO
+      </div>
+      <div class="card-body">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">SKU</th>
+              <th scope="col">NOMBRE</th>
+              <th scope="col">DESCRIPCIÓN</th>
+              <th scope="col">COSTO</th>
+              <th scope="col">TIPO DE INGRESO</th>
+              <th scope="col">FECHA DE INGRESO</th>
+              <th scope="col">ESTADO</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#each mat}}
+            <tr>
+              <td>{{this.sku}}</td>
+              <td>{{this.nombre}}</td>
+              <td>{{this.descr}}</td>
+              <td>${{this.costo}}</td>
+              <td>{{this.tipo_ingreso}}</td>
+              <td>{{this.fechaI}}</td>
+              <td>{{this.s}}</td>
+              <td>
+                <div class="btn-group" role="group">
+                  <a class="btn btn-info btn-sm" href="/editar/material/?s={{this.sku}}">EDITAR</a>
+                  {{!-- <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#staticBackdrop"> ELIMINAR</button> --}}
+                  {{#if this.stat}}<a href="/agregar/prestamo/?s={{this.sku}}" type="button"
+                    class="btn btn-success text-light btn-sm">PRESTAR</a>
+                  {{else}}
+
+                  <form action="/agregar/devolver" method="POST">
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-success btn-sm" data-toggle="modal"
+                      data-target="#exampleModal">
+                      DEVOLVER
+                    </button>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+                      aria-labelledby="exampleModalLabel" aria-hidden="true">
+                      <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">AVISO</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
+                            ¿QUIERE DEVOLVER ESTE ARTÍCULO?
+                          </div>
+                          <div class="modal-footer">
+                            <input type="hidden" name="id" value="{{this.sku}}">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">NO</button>
+                            <button type="submit" class="btn btn-primary">ACEPTAR</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                  {{/if}}
+                  {{!-- <a type="button" class="btn btn-success text-light btn-sm">DEVOLVER</a>{{/if}} --}}
+                </div>
+              </td>
+              <td>
+                <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#delete">
+                  ELIMINAR
+                </button>
+
+                <!-- Modal -->
+                <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="delete"
+                  aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="delete">ALERTA</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        ESTÁ A PUNTO DE ELIMINAR
+                        UN MATERIAL ¿DESEA CONTINUAR CON DICHA ACCIÓN?
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">CANCELAR</button>
+                        <form action="/eliminar/material" method="POST">
+                          <input type="hidden" value="{{this.sku}}" name="sku">
+                          <button type="submit" class="btn btn-danger btn">ELIMINAR</button>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                {{!-- <a class="btn btn-danger btn-sm" href="/eliminar/material/?s={{this.sku}}">ELIMINAR</a> --}}
+              </td>
+            </tr>
+            {{/each}}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</center>
+
+
+{{/if}}
+
+{{#if Sact}}
+<center>
+    <div class="card" style="margin-top: 1em; margin-left: 1em; margin-right: 1em;">
+        <div class="card">
+            <div class="card-header">
+                ACTIVIDADES
+            </div>
+            <div class="card-body" style="text-align: center;">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">DESCRIPCIÓN</th>
+                            <th scope="col">INSTRUCTOR</th>
+                            <th scope="col">LUGAR</th>
+                            <th scope="col">LUNES</th>
+                            <th scope="col">MARTES</th>
+                            <th scope="col">MIERCOLES</th>
+                            <th scope="col">JUEVES</th>
+                            <th scope="col">VIERNES</th>
+                            <th scope="col">INSCRITOS</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each act}}
+                        <tr>
+                            
+                            <td>{{this.descr}}</td>
+                            <td><a href="/ver/datos/usuario/?s={{this.prof}}" class="text-dark">{{this.prof}}</a></td>
+                            <td>{{this.lugar}}</td>
+                            <td>{{this.li}}-{{this.lf}}</td>
+                            <td>{{this.mi}}-{{this.mf}}</td>
+                            <td>{{this.mii}}-{{this.mif}}</td>
+                            <td>{{this.ji}}-{{this.jf}}</td>
+                            <td>{{this.vi}}-{{this.vf}}</td>
+                            <td><a class="text-dark" href="/ver/inscritos/?s={{this.cod}}">{{this.in}}</a></td>
+                            <td>
+                                <a class="btn btn-info btn-sm" href="/agregar/A_actividad/?s={{this.cod}}">AGREGAR</a>
+                                <a class="btn btn-outline-dark btn-sm" href="/editar/horario/?s={{this.cod}}">EDITAR</a>
+                            </td>
+
+
+                            <td>
+                                <!-- Button trigger modal -->
+                                <button type="button" class="btn btn-danger btn-sm" data-toggle="modal"
+                                    data-target="#exampleModal">
+                                    ELIMINAR
+                                </button>
+
+                                <!-- Modal -->
+                                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">ALERTA</h5>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                ESTÁ A PUNTO DE ELIMINAR
+                                                UNA ACTIVIDAD ¿DESEA CONTINUAR CON DICHA ACCIÓN?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-dismiss="modal">CANCELAR</button>
+                                                <form action="/eliminar/actividad" method="POST">
+                                                    <input type="hidden" value="{{this.cod}}" name="cod">
+                                                    <button type="submit"
+                                                        class="btn btn-danger btn">ELIMINAR</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {{!-- <a class="btn btn-danger btn-sm" href="/eliminar/actividad/?s={{this.cod}}">ELIMINAR</a> --}}
+                            </td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</center>
+{{/if}}

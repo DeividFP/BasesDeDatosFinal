@@ -1,0 +1,51 @@
+<center>
+
+    <form action="/agregar/A_actividad" method="POST">
+    <input type="hidden" name="s" value="{{s}}">
+        <div class="input-group mb-3 mt-4" style="width: 75%;">
+            <input type="text" class="form-control" name="u" placeholder="BUSCAR USUARIO">
+            <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="submit" id="button-addon2">BUSCAR</button>
+            </div>
+        </div>
+    </form>
+
+</center>
+
+<center>
+    <div class="card mt-4" style="width: 75%;">
+        <div class="card">
+            <div class="card-header">
+                ACTIVIDADES
+            </div>
+            <div class="card-body" style="text-align: center;">
+                <table class="table">
+                    <thead>
+                        <tr>
+
+                            <th scope="col">MATRÍCULA/BOLETA</th>
+                            <th scope="col">NOMBRE</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each consulta}}
+                        <tr>
+                            <td>{{this.mb}}</td>
+                            <td>{{this.pri}} {{this.seg}} {{this.nom}} </td>
+                            <td>
+                                <form action="/agregar/AA" method="POST">
+                                <input type="hidden" name="cod" value="{{this.s}}">
+                                <input type="hidden" name="mb" value="{{this.mb}}">
+                                   {{#if this.insc}} <button type="submit" class="btn btn-info btn-sm" >AGREGAR</button>
+                                    {{else}}<label>ESTE ALUMNO YA ESTÁ INSCRITO</label> {{/if}}
+                                </form>
+                            </td>
+
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</center>

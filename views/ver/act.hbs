@@ -1,0 +1,104 @@
+<center>
+  <div class="input-group" style="margin-top: 1em;margin-left: 1em;">
+    <form action="/ver/a_busq" method="POST">
+      <div class="btn-group" role="group" aria-label="Basic example">
+        <button type="submit" name="v" value="1" class="btn btn-outline-secondary">DEPORTIVA</button>
+        <button type="submit" name="v" value="2" class="btn btn-outline-primary">CULTURAL</button> 
+      </div>
+    </form>
+    <form action="/ver/a_busq" method="POST">
+      <div class="input-group mb-3">
+        <input type="text" class="form-control" name="b" placeholder="PALABRA CLAVE">
+        <button type="submit" class="btn btn-outline-success">BUSCAR</button>
+      </div>
+    </form>
+  </div>
+</center>
+
+
+<center>
+    <div class="card" style="margin-top: 1em; margin-left: 1em; margin-right: 1em;">
+        <div class="card">
+            <div class="card-header">
+                ACTIVIDADES
+            </div>
+            <div class="card-body" style="text-align: center;">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">DESCRIPCIÓN</th>
+                            <th scope="col">INSTRUCTOR</th>
+                            <th scope="col">LUGAR</th>
+                            <th scope="col">LUNES</th>
+                            <th scope="col">MARTES</th>
+                            <th scope="col">MIERCOLES</th>
+                            <th scope="col">JUEVES</th>
+                            <th scope="col">VIERNES</th>
+                            <th scope="col">INSCRITOS</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each consulta}}
+                        <tr>
+                            
+                            <td>{{this.descr}}</td>
+                            <td><a href="/ver/datos/usuario/?s={{this.prof}}" class="text-dark">{{this.prof}}</a></td>
+                            <td>{{this.lugar}}</td>
+                            <td>{{this.li}}-{{this.lf}}</td>
+                            <td>{{this.mi}}-{{this.mf}}</td>
+                            <td>{{this.mii}}-{{this.mif}}</td>
+                            <td>{{this.ji}}-{{this.jf}}</td>
+                            <td>{{this.vi}}-{{this.vf}}</td>
+                            <td><a class="text-dark" href="/ver/inscritos/?s={{this.cod}}">{{this.in}}</a></td>
+                            <td>
+                                <a class="btn btn-info btn-sm" href="/agregar/A_actividad/?s={{this.cod}}">AGREGAR</a>
+                                <a class="btn btn-outline-dark btn-sm" href="/editar/horario/?s={{this.cod}}">EDITAR</a>
+                            </td>
+
+
+                            <td>
+                                <!-- Button trigger modal -->
+                                <button type="button" class="btn btn-danger btn-sm" data-toggle="modal"
+                                    data-target="#exampleModal">
+                                    ELIMINAR
+                                </button>
+
+                                <!-- Modal -->
+                                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">ALERTA</h5>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                ESTÁ A PUNTO DE ELIMINAR
+                                                UNA ACTIVIDAD ¿DESEA CONTINUAR CON DICHA ACCIÓN?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-dismiss="modal">CANCELAR</button>
+                                                <form action="/eliminar/actividad" method="POST">
+                                                    <input type="hidden" value="{{this.cod}}" name="cod">
+                                                    <button type="submit"
+                                                        class="btn btn-danger btn">ELIMINAR</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {{!-- <a class="btn btn-danger btn-sm" href="/eliminar/actividad/?s={{this.cod}}">ELIMINAR</a> --}}
+                            </td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</center>

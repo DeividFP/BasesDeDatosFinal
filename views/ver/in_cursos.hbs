@@ -1,0 +1,40 @@
+<center>
+    <div class="card" style="margin-top: 1em; margin-left: 1em; margin-right: 1em;">
+        <div class="card">
+            <div class="card-header">
+                ACTIVIDADES
+            </div>
+            <div class="card-body" style="text-align: center;">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">DESCRIPCIÓN</th>
+                            <th scope="col">LUGAR</th>
+                            <th scope="col">LUNES</th>
+                            <th scope="col">MARTES</th>
+                            <th scope="col">MIERCOLES</th>
+                            <th scope="col">JUEVES</th>
+                            <th scope="col">VIERNES</th>
+                            <th scope="col">CRÉDITOS</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each consulta}}
+                        <tr>
+                            
+                            <td>{{this.descr}}</td>
+                            <td>{{this.lugar}}</td>
+                            <td>{{this.li}}-{{this.lf}}</td>
+                            <td>{{this.mi}}-{{this.mf}}</td>
+                            <td>{{this.mii}}-{{this.mif}}</td>
+                            <td>{{this.ji}}-{{this.jf}}</td>
+                            <td>{{this.vi}}-{{this.vf}}</td>
+                            <td>{{this.creditos}}</a></td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</center>
